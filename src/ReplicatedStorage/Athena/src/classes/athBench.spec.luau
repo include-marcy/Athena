@@ -34,11 +34,8 @@ return function ()
         end);
 
         it("should allow libraries to build tokens to signal to Athena immutable information about the library", function()
-            local athToken = athBench:athMakeToken("production");
-            athToken:athSetValue(false);
-
-            local athToken2 = athBench:athMakeToken("doExampleFFlag");
-            athToken2:athSetValue(true);
+            athBench:athMakeToken("production", false);
+            athBench:athMakeToken("doExampleFFlag", true);
 
             expect(athBench:athGetToken("production")).to.equal(false);
             expect(athBench:athGetToken("doExampleFFlag")).to.equal(true);
@@ -131,7 +128,7 @@ return function ()
         end);
 
         it("should be able to hide away when in production mode", function()
-            local production = athBench:athGetToken("production");
+            local production = athBench:athReadToken("production");
 
             function athBench:athFoo()
                 print("I'm going to be benchmarked when outside of production mode!");

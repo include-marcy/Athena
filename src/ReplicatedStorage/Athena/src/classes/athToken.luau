@@ -9,21 +9,29 @@
 -- Athena Dependencies
 local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);
-local athUtils = require(athena.lib.athUtils);
 
 -- Class Definition
-local athToken = athUtils.Class();
+local athToken = {};
+athToken.__index = athToken;
 
-export type athToken = typeof(setmetatable({} :: {}, {} :: typeof(athToken)));
+export type athToken = typeof(setmetatable({} :: {
+    value : any;
+}, {} :: typeof(athToken)));
 
 function athToken.new(athTokenCreateInfo : athTypes.athTokenCreateInfo) : athToken
     local token = setmetatable({}, athToken);
 
+    token.value = athTokenCreateInfo.value;
+
+    table.freeze(token);
+
     return token;
 end
 
-function athToken:athFoo()
+function athToken:athReadValue()
+    local token : athToken = self;
 
+    return token.value;
 end
 
-return athToken :: athToken;
+return athToken;

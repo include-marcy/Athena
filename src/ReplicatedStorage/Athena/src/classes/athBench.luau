@@ -10,6 +10,7 @@ local HttpService = game:GetService("HttpService");
 -- Athena Dependencies
 local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);
+local athToken = require(athena.classes.athToken);
 
 -- Class Declaration
 local athBench = {};
@@ -25,6 +26,11 @@ function athBench.new(athBenchCreateInfo : athTypes.athBenchCreateInfo) : athBen
 
     bench._frequencyHookStates = {};
     bench._authors = {};
+    bench._debugDump = {
+        profile = {};
+        tokens = {};
+        biography = {};
+    };
 
     return bench;
 end
@@ -52,6 +58,30 @@ function athBench:athGetFrequency(name : string) : number
     local num = bench._frequencyHookStates[name] or 0;
 
     return num
+end
+
+function athBench:athMakeToken(name : string, value : any) : athToken.athToken
+    local bench : athBench = self;
+
+    local token = athToken.new({
+        name = name;
+        value = value;
+    })
+
+    bench._debugDump.tokens[name] = token;
+
+    return token;
+end
+
+function athBench:athReadToken(name : string) : any
+    local bench : athBench = self;
+
+    local token : athToken.athToken? = bench._debugDump.tokens[name];
+    if not token then
+        return nil;
+    end
+
+    return token:athReadValue();
 end
 
 local athStopwatch = {};
@@ -152,7 +182,11 @@ function athAuthor:athLog(message : string) : string
         end
     end
 
-    table.insert(author._biography, message);
+    table.insert(author._debugDump.biography, {
+        author = author.name;
+        message = message;
+        timeStamp = os.time();
+    });
 
     if author.mode == "ATH_LOG_MODE_LOUD" then
         warn(message);

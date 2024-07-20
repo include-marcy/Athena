@@ -30,6 +30,7 @@ return function ()
             local count = athBench:athGetFrequency("name");
 
             expect(count).to.be.a("number");
+            expect(count).never.to.equal(nil);
         end);
 
         it("should allow libraries to build tokens to signal to Athena immutable information about the library", function()
@@ -52,7 +53,7 @@ return function ()
             --.. do some work...
             task.wait(5);
             --.. maybe do some more...
-            athEventStopwatch:click();
+            athEventStopwatch:athClick();
 
             expect(athEventStopwatch:athGetTime()).to.be.a("number");
             expect(athEventStopwatch:athGetTime()).to.be.near(5);
@@ -69,12 +70,12 @@ return function ()
         it("should be capable of outputting debug information about a library at large", function()
             local athDebugDump = athBench:athGetDebugDump();
 
-            expect(athDebugDump.errors).never.to.be.a("nil");
-            expect(athDebugDump.profiling).never.to.be.a("nil");
+            expect(athDebugDump.errors).never.to.equal(nil);
+            expect(athDebugDump.profiling).never.to.equal(nil);
             expect(athDebugDump.tokens).to.be.a(typeof({
                 athTypes.athToken;
             }));
-            expect(athDebugDump.biography).never.to.be.a("nil");
+            expect(athDebugDump.biography).never.to.equal(nil);
         end);
 
         it("should be capable of authoring an error dump", function()

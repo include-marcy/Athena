@@ -37,8 +37,8 @@ export type athBenchCreateInfo = {
 };
 
 export type athTokenCreateInfo = {
-    tokenName : string;
-    tokenValue : any;
+    name : string;
+    value : any;
 };
 
 export type athMobileButtonCreateInfo = {

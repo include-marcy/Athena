@@ -6,8 +6,8 @@ return function ()
 
     describe("athToken", function()
         local athTokenCreateInfo : athTypes.athTokenCreateInfo = {
-            tokenName = "buildMode";
-            tokenValue = "debug";
+            name = "buildMode";
+            value = "debug";
         };
         local token = athToken.new(athTokenCreateInfo);
 

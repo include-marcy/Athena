@@ -68,4 +68,12 @@ export type athConnectionCreateInfo = {
 	callback : (any) -> (any);
 };
 
+export type athPackageCreateInfo = {
+    packageIdentity : string;
+};
+
+export type athUserStoreCreateInfo = {
+    name : string;
+};
+
 return athTypes;

@@ -12,12 +12,17 @@ local athTypes = require(athena.lib.athTypes);
 local athUtils = require(athena.lib.athUtils);
 
 -- Class Definition
-local athCaller = athUtils.Class();
+local athCaller = {};
+athCaller.__index = athCaller;
 
-export type athCaller = typeof(setmetatable({} :: {}, {} :: typeof(athCaller)));
+export type athCaller = typeof(setmetatable({} :: {
+    athClassName : "athCaller";
+}, {} :: typeof(athCaller)));
 
 function athCaller.new(athCallerCreateInfo : athTypes.athCallerCreateInfo) : athCaller
-    local caller = setmetatable({}, athCaller);
+    local caller = setmetatable({
+        athClassName = "athCaller";
+    }, athCaller);
 
     return caller;
 end
@@ -26,4 +31,4 @@ function athCaller:athFoo()
 
 end
 
-return athCaller :: athCaller;
+return athCaller;

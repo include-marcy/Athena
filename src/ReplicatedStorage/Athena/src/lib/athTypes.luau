@@ -69,7 +69,14 @@ export type athConnectionCreateInfo = {
 };
 
 export type athPackageCreateInfo = {
-    packageIdentity : string;
+    packageIdentity : {
+        packageCourier : string;
+        packageShipper : string;
+        packageName : string;
+    };
+    autoload : boolean?;
+    dumpLocation : Instance?;
+    displayName : string?;
 };
 
 export type athUserStoreCreateInfo = {

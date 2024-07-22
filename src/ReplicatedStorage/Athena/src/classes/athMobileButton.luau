@@ -27,6 +27,7 @@ export type athMobileButton = typeof(setmetatable({} :: {
     active : boolean;
     buttonInstance : Frame?;
     buttonInstanceType : athTypes.athMobileButtonType;
+    athClassName : "athMobileButton";
 }, {} :: typeof(athMobileButton)));
 
 local function GET_RAW_SCALE_FOR_SYSTEM_SIZE_MOBILE(systemSize : number) : UDim2
@@ -42,7 +43,9 @@ end
     @return athMobileButton
 ]==]
 function athMobileButton.new(athMobileButtonCreateInfo : athTypes.athMobileButtonCreateInfo) : athMobileButton
-    local mobileButton = setmetatable({}, athMobileButton);
+    local mobileButton = setmetatable({
+        athClassName = "athMobileButton";
+    }, athMobileButton);
 
     mobileButton.organizationLayer = athMobileButtonCreateInfo.organizationLayer;
     mobileButton.buttonType = athTypes.athMobileButtonCreateInfo.buttonType or "ATH_BUTTON_NORMAL";

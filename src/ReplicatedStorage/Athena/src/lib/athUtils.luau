@@ -14,4 +14,8 @@ function athUtils.ClassType(Class)
     return typeof(setmetatable({} :: {}, {} :: typeof(typeCast)));
 end
 
+function athUtils.athIsA(Class)
+    return typeof(Class) == "table" and Class.athClassName or "athUnlabeledClass";
+end
+
 return athUtils;

@@ -15,10 +15,13 @@ export type athConnection = typeof(setmetatable({} :: {
 	connectionId : string;
 	signal : athSignal;
 	callback : (any) -> (any);
+	athClassName : "athSignal";
 }, {} :: typeof(athConnection)))
 
 function athConnection.new(athConnectionCreateInfo : athTypes.athConnectionCreateInfo) : athConnection
-	local connection = setmetatable({}, athConnection);
+	local connection = setmetatable({
+		athClassName = "athSignal";
+	}, athConnection);
 
 	connection.signal = athConnectionCreateInfo.signal;
 	connection.connectionId = HttpService:GenerateGUID(false);
@@ -26,14 +29,14 @@ function athConnection.new(athConnectionCreateInfo : athTypes.athConnectionCreat
 
 	local signal : athSignal = connection.signal;
 	signal.payload[connection.connectionId] = connection;
-	
+
 	return connection;
 end
 
 function athConnection:Disconnect()
 	local connectionId = self.connectionId;
 	local signal : athSignal = self.signal;
-	
+
 	signal.payload[connectionId] = nil;
 
 	table.clear(self);
@@ -55,9 +58,9 @@ export type athSignal = typeof(setmetatable({} :: {
 ]=]
 function athSignal.new() : athSignal
 	local signal = setmetatable({}, athSignal);
-	
+
 	signal.payload = {};
-	
+
 	return signal;
 end
 
@@ -72,9 +75,9 @@ function athSignal:Connect(func : any) : athConnection
 		signal = self;
 		callback = func;
 	};
-	local athConnection : athConnection = athConnection.new(athConnectionCreateInfo);
-	
-	return athConnection;
+	local connection : athConnection = athConnection.new(athConnectionCreateInfo);
+
+	return connection;
 end
 
 --[=[
@@ -89,7 +92,7 @@ function athSignal:Once(func : any) : athConnection
 		connection:Disconnect()
 		func()
 	end);
-	
+
 	return connection;
 end
 
@@ -104,7 +107,7 @@ function athSignal:Fire(...)
 	local payload = signal.payload;
 	local arguments = {...};
 
-	for connectionId, connection in pairs(payload) do
+	for _, connection in pairs(payload) do
 		task.spawn(connection.callback, table.unpack(arguments));
 	end
 end
@@ -115,11 +118,11 @@ end
 function athSignal:Destroy()
 	local signal : athSignal = self;
 	local payload = signal.payload;
-	
-	for connectionId, connection in pairs(payload) do
+
+	for _, connection in pairs(payload) do
 		connection:Disconnect();
 	end
-	
+
 	table.clear(self);
 	setmetatable(self, nil);
 end

@@ -9,15 +9,28 @@
 -- Athena Dependencies
 local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);
-local athUtils = require(athena.lib.athUtils);
 
 -- Class Definition
-local athAccountant = athUtils.Class();
+local athAccountant = {};
+athAccountant.__index = athAccountant;
 
-export type athAccountant = typeof(setmetatable({} :: {}, {} :: typeof(athAccountant)));
+export type athAccountant = typeof(setmetatable({} :: {
+    athClassName : "athAccountant";
+}, {} :: typeof(athAccountant)));
 
+--[==[
+    @class athAccountant
+
+    Creates a new athAccountant. An accountant object is used to reason about performance statistics inside
+    your experience.
+
+    @param athAccountantCreateInfo;
+    @return athAccountant;
+]==]
 function athAccountant.new(athAccountantCreateInfo : athTypes.athAccountantCreateInfo) : athAccountant
-    local accountant = setmetatable({}, athAccountant);
+    local accountant = setmetatable({
+        athClassName = "athAccountant";
+    }, athAccountant);
 
     return accountant;
 end
@@ -26,4 +39,4 @@ function athAccountant:athFoo()
 
 end
 
-return athAccountant :: athAccountant;
+return athAccountant;

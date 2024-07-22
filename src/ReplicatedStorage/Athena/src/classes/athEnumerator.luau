@@ -12,12 +12,17 @@ local athTypes = require(athena.lib.athTypes);
 local athUtils = require(athena.lib.athUtils);
 
 -- Class Definition
-local athEnumerator = athUtils.Class();
+local athEnumerator = {};
+athEnumerator.__index = athEnumerator;
 
-export type athEnumerator = typeof(setmetatable({} :: {}, {} :: typeof(athEnumerator)));
+export type athEnumerator = typeof(setmetatable({} :: {
+    athClassName : "athEnumerator";
+}, {} :: typeof(athEnumerator)));
 
 function athEnumerator.new(athEnumeratorCreateInfo : athTypes.athEnumeratorCreateInfo) : athEnumerator
-    local enumerator = setmetatable({}, athEnumerator);
+    local enumerator = setmetatable({
+        athClassName = "athEnumerator";
+    }, athEnumerator);
 
     return enumerator;
 end
@@ -26,4 +31,4 @@ function athEnumerator:athFoo()
 
 end
 
-return athEnumerator :: athEnumerator;
+return athEnumerator;

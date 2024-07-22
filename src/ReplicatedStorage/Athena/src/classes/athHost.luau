@@ -14,10 +14,14 @@ local athTypes = require(athena.lib.athTypes);
 local athHost = {};
 athHost.__index = athHost;
 
-export type athHost = typeof(setmetatable({} :: {}, {} :: typeof(athHost)));
+export type athHost = typeof(setmetatable({} :: {
+    athClassName : "athHost";
+}, {} :: typeof(athHost)));
 
 function athHost.new(athHostCreateInfo : athTypes.athHostCreateInfo) : athHost
-    local host = setmetatable({}, athHost);
+    local host = setmetatable({
+        athClassName = "athHost";
+    }, athHost);
 
     return host :: athHost;
 end

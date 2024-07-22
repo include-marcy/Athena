@@ -16,10 +16,13 @@ export type athInputStreamPath = typeof(setmetatable({} :: {
     inputToCapture : athTypes.athCapturableInputs;
     inputMobileButtonType : athTypes.athMobileButtonType?;
     transform : (athTypes.athInputStreamData) -> (athTypes.athInputStreamData)?;
+    athClassName : "athInputStreamPath";
 }, {} :: typeof(athInputStreamPath)));
 
 function athInputStreamPath.new(athInputStreamPathCreateInfo : athTypes.athInputStreamPathCreateInfo) : athInputStreamPath
-    local inputStreamPath = setmetatable({}, athInputStreamPath);
+    local inputStreamPath = setmetatable({
+        athClassName = "athInputStreamPath";
+    }, athInputStreamPath);
 
     inputStreamPath.inputType = athInputStreamPathCreateInfo.inputType;
     inputStreamPath.inputToCapture = athInputStreamPathCreateInfo.inputToCapture;

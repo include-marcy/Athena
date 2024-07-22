@@ -5,7 +5,7 @@
 --!optimize 2
 
 -- ROBLOX Services
-local PluginDebugService = game:GetService("PluginDebugService");
+local TestService = game:WaitForChild("TestService");
 local HttpService = game:GetService("HttpService");
 
 -- Athena Dependencies
@@ -19,23 +19,48 @@ athUserStore.__index = athUserStore;
 export type athUserStore = typeof(setmetatable({} :: {
     name : string;
     userDataFolder : Folder;
+    athClassName : "athUserStore";
 }, {} :: typeof(athUserStore)));
 
+-- Constants
 local REFERENDUM_FOLDER_NAME = "athUsersReferendum";
 
-local function GET_REFERENDUM_USERS()
-    local usersReferendum = PluginDebugService:FindFirstChild(REFERENDUM_FOLDER_NAME);
+--[==[
+    @class athUserStore
+    @private
+    @const
+    @static
+
+    Returns the users referendum, a global folder that stores data and instances for developers in
+    Roblox Studio
+
+    @return usersReferendum : Folder;
+]==]
+local function GET_REFERENDUM_USERS() : Folder
+    local usersReferendum = TestService:FindFirstChild(REFERENDUM_FOLDER_NAME);
 
     if not usersReferendum then
         usersReferendum = Instance.new("Folder");
         usersReferendum.Name = REFERENDUM_FOLDER_NAME;
-        usersReferendum.Parent = PluginDebugService;
+        usersReferendum.Parent = TestService;
     end
 
     return usersReferendum;
 end
 
-local function GET_USER_DATA_FOLDER(user : string)
+--[==[
+    @class athUserStore
+    @private
+    @const
+    @static
+
+    Returns a folder inside the users referendum, a global access folder for storing instances and data inside
+    Roblox Studio.
+
+    @param user : string;
+    @return userDataFolder : Folder;
+]==]
+local function GET_USER_DATA_FOLDER(user : string) : Folder
     local usersReferendum = GET_REFERENDUM_USERS();
 
     local userDataFolder = usersReferendum:FindFirstChild(user);
@@ -58,7 +83,9 @@ end
     @return athUserStore
 ]==]
 function athUserStore.new(athUserStoreCreateInfo : athTypes.athUserStoreCreateInfo) : athUserStore
-    local userStore = setmetatable({}, athUserStore);
+    local userStore = setmetatable({
+        athClassName = "athUserStore";
+    }, athUserStore);
 
     userStore.name = athUserStoreCreateInfo.name;
     userStore.userDataFolder = GET_USER_DATA_FOLDER(userStore.name);

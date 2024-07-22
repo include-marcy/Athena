@@ -9,15 +9,19 @@
 -- Athena Dependencies
 local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);
-local athUtils = require(athena.lib.athUtils);
 
 -- Class Definition
-local athTester = athUtils.Class();
+local athTester = {};
+athTester.__index = athTester;
 
-export type athTester = typeof(setmetatable({} :: {}, {} :: typeof(athTester)));
+export type athTester = typeof(setmetatable({} :: {
+    athClassName : "athTester";
+}, {} :: typeof(athTester)));
 
 function athTester.new(athTesterCreateInfo : athTypes.athTesterCreateInfo) : athTester
-    local tester = setmetatable({}, athTester);
+    local tester = setmetatable({
+        athClassName = "athTester";
+    }, athTester);
 
     return tester;
 end
@@ -26,4 +30,4 @@ function athTester:athFoo()
 
 end
 
-return athTester :: athTester;
+return athTester;

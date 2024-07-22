@@ -7,10 +7,13 @@ export type athStopwatch = typeof(setmetatable({} :: {
     _startTime : number;
     _elapsedTime : number;
     _stopTime : number?;
+    athClassName : "athStopwatch";
 }, {} :: typeof(athStopwatch)));
 
 function athStopwatch.new(athStopwatchCreateInfo) : athStopwatch
-    local stopwatch = setmetatable({}, athStopwatch);
+    local stopwatch = setmetatable({
+        athClassName = "athStopwatch";
+    }, athStopwatch);
 
     stopwatch.name = athStopwatchCreateInfo.name;
     stopwatch._clicked = false;

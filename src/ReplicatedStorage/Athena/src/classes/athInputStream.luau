@@ -27,6 +27,7 @@ export type athInputStream = typeof(setmetatable({} :: {
     athInformedInputTypeChanged : athSignal.athSignal;
     athInputChannels : {};
     athTrove : athTrove.athTrove;
+    athClassName : "athInputStream";
 }, {} :: typeof(athInputStream)));
 
 --[==[
@@ -37,7 +38,9 @@ export type athInputStream = typeof(setmetatable({} :: {
 
 ]==]
 function athInputStream.new() : athInputStream
-    local inputStream = setmetatable({}, athInputStream);
+    local inputStream = setmetatable({
+        athClassName = "athInputStream";
+    }, athInputStream);
 
     inputStream.athInputBeganSignal = athSignal.new();
     inputStream.athInputEndedSignal = athSignal.new();

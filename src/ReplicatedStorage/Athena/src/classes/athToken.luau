@@ -16,10 +16,13 @@ athToken.__index = athToken;
 
 export type athToken = typeof(setmetatable({} :: {
     value : any;
+    athClassName : "athToken";
 }, {} :: typeof(athToken)));
 
 function athToken.new(athTokenCreateInfo : athTypes.athTokenCreateInfo) : athToken
-    local token = setmetatable({}, athToken);
+    local token = setmetatable({
+        athClassName = "athToken";
+    }, athToken);
 
     token.value = athTokenCreateInfo.value;
 

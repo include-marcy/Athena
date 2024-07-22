@@ -9,12 +9,14 @@
 -- Athena Dependencies
 local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);
-local athUtils = require(athena.lib.athUtils);
 
 -- Class Definition
-local athLibrary = athUtils.Class();
+local athLibrary = {};
+athLibrary.__index = athLibrary;
 
-export type athLibrary = typeof(setmetatable({} :: {}, {} :: typeof(athLibrary)));
+export type athLibrary = typeof(setmetatable({} :: {
+    athClassName : "athLibrary";
+}, {} :: typeof(athLibrary)));
 
 --[==[
     @class athLibrary
@@ -30,7 +32,9 @@ export type athLibrary = typeof(setmetatable({} :: {}, {} :: typeof(athLibrary))
     :::
 ]==]
 function athLibrary.new(athLibraryCreateInfo : athTypes.athLibraryCreateInfo) : athLibrary
-    local library = setmetatable({}, athLibrary);
+    local library = setmetatable({
+        athClassName = "athLibrary";
+    }, athLibrary);
 
     return library;
 end
@@ -89,4 +93,4 @@ function athLibrary:athGetProjectSingleton(className)
 
 end
 
-return athLibrary :: athLibrary;
+return athLibrary;

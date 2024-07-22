@@ -1,8 +1,20 @@
+-- This file is part of the Athena library and is licensed under MIT License; see LICENSE.md for details
+
+--!strict
+--!native
+--!optimize 2
+
+-- ROBLOX Services
+
+-- Athena Dependencies
+
+-- Class Declaration
 local athAuthor = {};
 athAuthor.__index = athAuthor;
 
 export type athAuthor = typeof(setmetatable({} :: {
     name : string;
+    athClassName : "athAuthor";
     mode : "ATH_LOG_MODE_QUIET" | "ATH_LOG_MODE_LOUD" | "ATH_LOG_MODE_SILENT";
     _logLayers : {[number]: {
         transform : (string) -> (string);
@@ -10,8 +22,20 @@ export type athAuthor = typeof(setmetatable({} :: {
     _biography : {[number]: string};
 }, {} :: typeof(athAuthor)));
 
+--[==[
+    @class athAuthor
+
+    Creates a new athAuthor instance. An athAuthor instance is used to write logs to the experience "biography".
+    Experience Biographies are used to tell us more about the lifecycle of real JobIds so that we can gain insight
+    into the runtime behavior of libraries and experience state.
+
+    @param athAuthorCreateInfo;
+    @return athAuthor
+]==]
 function athAuthor.new(athAuthorCreateInfo) : athAuthor
-    local author = setmetatable({}, athAuthor);
+    local author = setmetatable({
+        athClassName = "athAuthor";
+    }, athAuthor);
 
     author.name = athAuthorCreateInfo.name;
     author.mode = athAuthorCreateInfo.mode;
@@ -22,12 +46,29 @@ function athAuthor.new(athAuthorCreateInfo) : athAuthor
     return author;
 end
 
+--[==[
+    @class athAuthor
+
+    Allows you to register middleware that will transform logged messages on this author.
+    Used to automate repetitive tasks or boilerplate text onto messages.
+
+    @param athLogLayerCreateInfo;
+]==]
 function athAuthor:athAddLogLayer(athLogLayerCreateInfo)
     local author : athAuthor = self;
 
     table.insert(author._logLayers, athLogLayerCreateInfo);
 end
 
+--[==[
+    @class athAuthor
+
+    Logs the message to the experience biography.
+    Automatically includes the author name, current time, and the message with any log transforms.
+
+    @param message : string;
+    @return transformedMessage : string;
+]==]
 function athAuthor:athLog(message : string) : string
     local author : athAuthor = self;
 

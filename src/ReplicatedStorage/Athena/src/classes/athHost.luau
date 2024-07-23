@@ -16,18 +16,25 @@ athHost.__index = athHost;
 
 export type athHost = typeof(setmetatable({} :: {
     athClassName : "athHost";
+    projectName : string;
 }, {} :: typeof(athHost)));
 
+--[==[
+    @class athHost
+
+    Creates a new athHost, the entry location of a new Athena project.
+
+    @param athHostCreateInfo;
+    @return athHost;
+]==]
 function athHost.new(athHostCreateInfo : athTypes.athHostCreateInfo) : athHost
     local host = setmetatable({
         athClassName = "athHost";
     }, athHost);
 
+    host.projectName = athHostCreateInfo.projectName;
+
     return host :: athHost;
-end
-
-function athHost:athFoo()
-
 end
 
 return athHost;

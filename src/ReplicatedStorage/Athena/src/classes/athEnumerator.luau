@@ -9,7 +9,6 @@
 -- Athena Dependencies
 local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);
-local athUtils = require(athena.lib.athUtils);
 
 -- Class Definition
 local athEnumerator = {};
@@ -17,12 +16,15 @@ athEnumerator.__index = athEnumerator;
 
 export type athEnumerator = typeof(setmetatable({} :: {
     athClassName : "athEnumerator";
+    name : string;
 }, {} :: typeof(athEnumerator)));
 
 function athEnumerator.new(athEnumeratorCreateInfo : athTypes.athEnumeratorCreateInfo) : athEnumerator
     local enumerator = setmetatable({
         athClassName = "athEnumerator";
     }, athEnumerator);
+
+    enumerator.name = athEnumeratorCreateInfo.name;
 
     return enumerator;
 end

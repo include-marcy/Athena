@@ -3,6 +3,7 @@
 local athTypes = {};
 
 export type athHostCreateInfo = {
+    projectName : string;
     projectRoot : ModuleScript; -- Descibes the project object
     projectClientRoot : ModuleScript; -- Describes the project object that is built for client contexts
     projectServerRoot : ModuleScript; -- Describes the project object that is built for server contexts
@@ -25,6 +26,10 @@ export type athInputStreamData = {
     began : boolean;
 };
 
+export type athEnumeratorCreateInfo = {
+    name : string;
+};
+
 export type athInputStreamPathCreateInfo = {
     inputType : athInformedInputType;
     inputToCapture : string;
@@ -39,6 +44,10 @@ export type athBenchCreateInfo = {
 export type athTokenCreateInfo = {
     name : string;
     value : any;
+};
+
+export type athLibraryCreateInfo = {
+    name : string;
 };
 
 export type athMobileButtonCreateInfo = {
@@ -81,6 +90,19 @@ export type athPackageCreateInfo = {
 
 export type athUserStoreCreateInfo = {
     name : string;
+};
+
+export type athExtensionCreateInfo = {
+    name : string;
+};
+
+export type athExtensionWindowCreateInfo = {
+    athExtensionWindowName : string;
+    athExtensionWindowStackable : boolean?;
+    athExtensionWindowSize : Vector2;
+    athExtensionWindowDocked : boolean;
+    athExtensionWindowRef : GuiObject?;
+    athExtensionWindowRunMode : "ATH_EDITOR_EXTENSION" | "ATH_LIVE_EXTENSION" | "ATH_SCRIPT_EXTENSION";
 };
 
 return athTypes;

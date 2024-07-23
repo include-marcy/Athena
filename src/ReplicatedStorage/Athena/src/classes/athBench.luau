@@ -20,7 +20,7 @@ athBench.__index = athBench;
 
 export type athBench = typeof(setmetatable({} :: {
     _frequencyHookStates : {[string] : number};
-    _authors : {[string] : athAuthor};
+    _authors : {[string] : athAuthor.athAuthor};
     athClassName : "athBench";
 }, {} :: typeof(athBench)));
 

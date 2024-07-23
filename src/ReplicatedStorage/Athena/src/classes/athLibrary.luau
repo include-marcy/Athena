@@ -16,6 +16,9 @@ athLibrary.__index = athLibrary;
 
 export type athLibrary = typeof(setmetatable({} :: {
     athClassName : "athLibrary";
+    athClasses : Folder;
+    athTypes : ModuleScript;
+    athSingletons : {};
 }, {} :: typeof(athLibrary)));
 
 --[==[
@@ -36,6 +39,11 @@ function athLibrary.new(athLibraryCreateInfo : athTypes.athLibraryCreateInfo) : 
         athClassName = "athLibrary";
     }, athLibrary);
 
+    library.name = athLibraryCreateInfo.name;
+    library.athClasses = {};
+    library.athTypes = {};
+    library.athSingletons = {};
+
     return library;
 end
 
@@ -44,8 +52,10 @@ end
 
     Sets the internal registry of classes in this athLibrary object.
 ]==]
-function athLibrary:athSetClasses()
+function athLibrary:athSetClasses(classes : Folder)
+    local library : athLibrary = self;
 
+    library.athClasses = classes;
 end
 
 --[==[
@@ -54,7 +64,9 @@ end
     Returns the internal registry of classes in this athLibrary object.
 ]==]
 function athLibrary:athGetClasses()
+    local library : athLibrary = self;
 
+    return library.athClasses;
 end
 
 --[==[
@@ -62,8 +74,10 @@ end
 
     Sets the internal registry of types in this athLibrary object.
 ]==]
-function athLibrary:athSetProjectTypes()
+function athLibrary:athSetProjectTypes(types : ModuleScript)
+    local library : athLibrary = self;
 
+    library.athTypes = types;
 end
 
 --[==[
@@ -72,7 +86,9 @@ end
     Returns the internal registry of types in this athLibrary object.
 ]==]
 function athLibrary:athGetProjectTypes()
+    local library : athLibrary = self;
 
+    return library.athTypes;
 end
 
 --[==[
@@ -80,8 +96,16 @@ end
 
     Makes the copy of a singleton of class in this athLibrary object stored under className.
 ]==]
-function athLibrary:athCreateProjectSingleton(className, class)
+function athLibrary:athCreateProjectSingleton(className : string, class : any, ...)
+    local library : athLibrary = self;
 
+    if library:athGetProjectSingleton(className) then
+        return;
+    end
+
+    library.athSingletons[className] = class.new(...);
+
+    return library.athSingletons[className];
 end
 
 --[==[
@@ -89,8 +113,9 @@ end
 
     Returns the internal copy of a singleton of className in this athLibrary object
 ]==]
-function athLibrary:athGetProjectSingleton(className)
-
+function athLibrary:athGetProjectSingleton(className : string)
+    local library : athLibrary = self;
+    return library.athSingletons[className];
 end
 
 return athLibrary;

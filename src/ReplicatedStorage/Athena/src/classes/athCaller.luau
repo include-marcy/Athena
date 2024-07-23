@@ -9,7 +9,6 @@
 -- Athena Dependencies
 local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);
-local athUtils = require(athena.lib.athUtils);
 
 -- Class Definition
 local athCaller = {};

@@ -71,9 +71,12 @@ local function MAKE_DESCRIPTION_FROM_GITHUB(gitUser, gitRepoName, currentFolder)
                 local newFolder = Instance.new("Folder")
                 newFolder.Name = httpObject.name;
                 newFolder.Parent = currentFolder;
+                local oldFolder = currentFolder;
                 currentFolder = newFolder;
 
                 download(httpObject.url);
+
+                currentFolder = oldFolder;
             elseif httpObject.type == "file" then
                 local name = httpObject.name;
                 local filedata = string.split(name, ".");

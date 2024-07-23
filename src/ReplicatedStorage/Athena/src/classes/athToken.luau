@@ -19,6 +19,12 @@ export type athToken = typeof(setmetatable({} :: {
     athClassName : "athToken";
 }, {} :: typeof(athToken)));
 
+--[==[
+    @class athToken
+
+    @param athTokenCreateInfo;
+    @return athToken;
+]==]
 function athToken.new(athTokenCreateInfo : athTypes.athTokenCreateInfo) : athToken
     local token = setmetatable({
         athClassName = "athToken";
@@ -31,6 +37,11 @@ function athToken.new(athTokenCreateInfo : athTypes.athTokenCreateInfo) : athTok
     return token;
 end
 
+--[==[
+    @class athToken
+
+    @return value : any;
+]==]
 function athToken:athReadValue()
     local token : athToken = self;
 

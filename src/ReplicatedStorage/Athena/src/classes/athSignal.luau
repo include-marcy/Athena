@@ -7,8 +7,10 @@
 -- ROBLOX Services
 local HttpService = game:GetService("HttpService");
 
+-- Athena Dependencies
 local athTypes = require(script.Parent.Parent.lib.athTypes);
 
+-- Class Declaration
 local athConnection = {};
 athConnection.__index = athConnection;
 export type athConnection = typeof(setmetatable({} :: {
@@ -18,6 +20,14 @@ export type athConnection = typeof(setmetatable({} :: {
 	athClassName : "athSignal";
 }, {} :: typeof(athConnection)))
 
+--[==[
+	@class athConnection;
+
+	Creates a new athConnection in the given signal, using the supplied callback.
+
+	@param athConnectionCreateInfo;
+	@return athConnection;
+]==]
 function athConnection.new(athConnectionCreateInfo : athTypes.athConnectionCreateInfo) : athConnection
 	local connection = setmetatable({
 		athClassName = "athSignal";
@@ -33,6 +43,11 @@ function athConnection.new(athConnectionCreateInfo : athTypes.athConnectionCreat
 	return connection;
 end
 
+--[==[
+	@class athConnection
+
+	Removes this athConnection from the athSignal it is tied to.
+]==]
 function athConnection:Disconnect()
 	local connectionId = self.connectionId;
 	local signal : athSignal = self.signal;
@@ -43,6 +58,7 @@ function athConnection:Disconnect()
 	setmetatable(self, nil);
 end
 
+-- Class Definition
 local athSignal = {};
 athSignal.__index = athSignal;
 

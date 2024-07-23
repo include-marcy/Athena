@@ -1,6 +1,8 @@
-local athena = require(game.ReplicatedStorage.Athena)
-local athTypes = require(game.ReplicatedStorage.Athena.src.lib.athTypes);
-local athPackage = require(game.ReplicatedStorage.Athena.src.classes.athPackage);
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local athena = ReplicatedStorage.Athena.src;
+local athTypes = require(athena.lib.athTypes);
+local athPackage = require(athena.classes.athPackage);
 
 local demoPackageCreateInfo : athTypes.athPackageCreateInfo = {
     packageIdentity = {
@@ -8,7 +10,8 @@ local demoPackageCreateInfo : athTypes.athPackageCreateInfo = {
         packageShipper = "include-marcy";
         packageName = "Athena";
     };
-    autoload = true;
+    autoload = false;
     displayName = "myAthena";
 };
 local demoPackage = athPackage.new(demoPackageCreateInfo);
+demoPackage:athLoadPackageAsync();

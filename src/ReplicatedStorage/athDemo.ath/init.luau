@@ -13,14 +13,28 @@ local demoLibraryCreateInfo : athTypes.athLibraryCreateInfo = {
     name = "demo";
 };
 
+local demoPackages = require(library["packages.ath"]);
+
+-- Initialize the library:
 local demoLibrary = athLibrary.new(demoLibraryCreateInfo);
+-- Set the classes shortcut
 demoLibrary:athSetClasses(library.classes);
+-- Set the type module shortcut
 demoLibrary:athSetProjectTypes(library.demoTypes);
 
+-- Load the extension
 local demoExtensionCreateInfo : athTypes.athExtensionCreateInfo = {
     name = "demo";
 };
 local demoExtension = athExtension.new(demoExtensionCreateInfo);
+
+demoExtension:athBindToExtensionLoaded(function()
+    -- Load the library packages
+    demoLibrary:athUpdatePackagesAsync(demoPackages);
+end);
+demoExtension:athBindToExtensionClosed(function()
+
+end);
 
 local demoExtensionWindowCreateInfo : athTypes.athExtensionWindowCreateInfo = {
 

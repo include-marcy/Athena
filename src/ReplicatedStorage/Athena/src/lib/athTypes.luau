@@ -102,6 +102,7 @@ export type athUserStoreCreateInfo = {
 
 export type athExtensionCreateInfo = {
     name : string;
+    icon : string;
 };
 
 export type athExtensionWindowCreateInfo = {

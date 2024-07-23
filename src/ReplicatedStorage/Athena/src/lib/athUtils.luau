@@ -2,20 +2,14 @@
 
 local athUtils = {};
 
-function athUtils.Class()
-    local Class = {};
-    Class.__index = Class;
+--[==[
+    @public
+    @athUtils
 
-    return Class;
-end
-
-function athUtils.ClassType(Class)
-    local typeCast = Class or {};
-    return typeof(setmetatable({} :: {}, {} :: typeof(typeCast)));
-end
-
-function athUtils.athIsA(Class)
-    return typeof(Class) == "table" and Class.athClassName or "athUnlabeledClass";
+    Returns 
+]==]
+function athUtils.athIsA(Class, athClassName)
+    return typeof(Class) == "table" and (Class.athClassName or "athUnlabeledClass") == athClassName;
 end
 
 return athUtils;

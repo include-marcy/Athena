@@ -30,6 +30,14 @@ export type athEnumeratorCreateInfo = {
     name : string;
 };
 
+export type athAccountantCreateInfo = {
+    name : string;
+};
+
+export type athCallerCreateInfo = {
+    name : string;
+};
+
 export type athInputStreamPathCreateInfo = {
     inputType : athInformedInputType;
     inputToCapture : string;

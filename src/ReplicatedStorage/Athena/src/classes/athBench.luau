@@ -9,7 +9,6 @@ local HttpService = game:GetService("HttpService");
 
 -- Athena Dependencies
 local athena = script.Parent.Parent;
-local athTypes = require(athena.lib.athTypes);
 local athToken = require(athena.classes.athToken);
 local athStopwatch = require(athena.classes.athStopwatch);
 local athAuthor = require(athena.classes.athAuthor);
@@ -30,10 +29,9 @@ export type athBench = typeof(setmetatable({} :: {
     Creates a new athBench object. An athBench is used to gain insight into the performance of a certain region of
     an experience. Usually, you should create 1 athBench for use within your library.
 
-    @param athBenchCreateInfo;
     @return athBench
 ]==]
-function athBench.new(athBenchCreateInfo : athTypes.athBenchCreateInfo) : athBench
+function athBench.new() : athBench
     local bench = setmetatable({
         athClassName = "athBench";
     }, athBench);

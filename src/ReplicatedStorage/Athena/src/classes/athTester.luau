@@ -7,8 +7,6 @@
 -- ROBLOX Services
 
 -- Athena Dependencies
-local athena = script.Parent.Parent;
-local athTypes = require(athena.lib.athTypes);
 
 -- Class Definition
 local athTester = {};
@@ -18,7 +16,7 @@ export type athTester = typeof(setmetatable({} :: {
     athClassName : "athTester";
 }, {} :: typeof(athTester)));
 
-function athTester.new(athTesterCreateInfo : athTypes.athTesterCreateInfo) : athTester
+function athTester.new() : athTester
     local tester = setmetatable({
         athClassName = "athTester";
     }, athTester);

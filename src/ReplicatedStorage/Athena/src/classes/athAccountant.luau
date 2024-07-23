@@ -16,6 +16,7 @@ athAccountant.__index = athAccountant;
 
 export type athAccountant = typeof(setmetatable({} :: {
     athClassName : "athAccountant";
+    name : string;
 }, {} :: typeof(athAccountant)));
 
 --[==[
@@ -31,6 +32,8 @@ function athAccountant.new(athAccountantCreateInfo : athTypes.athAccountantCreat
     local accountant = setmetatable({
         athClassName = "athAccountant";
     }, athAccountant);
+
+    accountant.name = athAccountantCreateInfo.name;
 
     return accountant;
 end

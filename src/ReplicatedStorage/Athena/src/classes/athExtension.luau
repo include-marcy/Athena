@@ -22,6 +22,8 @@ export type athExtension = typeof(setmetatable({} :: {
     athExtensionIcon : string;
     athExtensionLoaded : athSignal.athSignal;
     athExtensionClosed : athSignal.athSignal;
+    athExtensionDock : DockWidgetPluginGui?;
+    athExtensionGui : Frame;
     _loaded : boolean?;
     _closed : boolean?;
     trove : athTrove.athTrove;
@@ -52,8 +54,14 @@ function athExtension.new(athExtensionCreateInfo : athTypes.athExtensionCreateIn
 
     extension.athExtensionName = athExtensionCreateInfo.name;
     extension.athExtensionIcon = athExtensionCreateInfo.icon;
+    extension.athExtensionDescription = athExtensionCreateInfo.description;
+    extension.athExtensionGui = athExtensionCreateInfo.gui;
 
-    extension._boundCallbacks = {}
+    extension.athExtensionToolbar = plugin:CreateToolbar(extension.athExtensionName);
+    extension.athExtensionLoadButton = extension.athExtensionToolbar:CreateButton(extension.athExtensionName,
+    extension.athExtensionDescription, extension.athExtensionIcon);
+
+    extension._boundCallbacks = {};
     extension.trove = athTrove.new();
 
     extension.trove:Add(extension.athExtensionLoaded:Connect(function()
@@ -102,11 +110,53 @@ function athExtension:athLoadExtension()
         return;
     end
 
+    if extension.athExtensionGui then
+        extension:athMakeWindow();
+    end
+
     extension.athExtensionLoaded:Fire();
 end
 
-function athExtension:athMakeWindow(athExtensionWindowCreateInfo : athTypes.athExtensionWindowCreateInfo)
 
+--[==[
+    @class athExtension
+
+    Creates a new DockWidget for this plugin using the athExtensionGui as a base.
+
+    @param athExtensionWindowCreateInfo;
+    @return Frame;
+]==]
+function athExtension:athMakeWindow(_ : athTypes.athExtensionWindowCreateInfo) : Frame
+    local extension : athExtension = self;
+    local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, true);
+    extension.athExtensionDock = plugin:CreateDockWidgetPluginGui(extension.athExtensionName, dockWidgetPluginGuiInfo);
+
+    local gui = extension.athExtensionGui:Clone();
+    extension.athExtensionGui = gui;
+    gui.Parent = extension.athExtensionDock;
+
+    return gui;
+end
+
+function athExtension:athPlaySound(soundProperties) : Sound
+    local extension : athExtension = self;
+    local dock = extension.athExtensionDock;
+
+    local sound = Instance.new("Sound");
+    pcall(function()
+        for pName, pValue in soundProperties do
+            sound[pName] = pValue;
+        end
+    end);
+
+    sound.Parent = dock;
+    local c; c = sound.Ended:Connect(function()
+        c:Disconnect();
+        sound:Destroy();
+        sound = nil;
+    end);
+
+    return sound;
 end
 
 function athExtension:athBindToExtensionLoaded(callback : () -> ())

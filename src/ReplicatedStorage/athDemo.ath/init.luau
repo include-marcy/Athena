@@ -25,6 +25,9 @@ demoLibrary:athSetProjectTypes(library.demoTypes);
 -- Load the extension
 local demoExtensionCreateInfo : athTypes.athExtensionCreateInfo = {
     name = "demo";
+    icon = "rbxassetid://18624810014";
+    description = "a demo tool.";
+    gui = game.StarterGui.Frame;
 };
 local demoExtension = athExtension.new(demoExtensionCreateInfo);
 

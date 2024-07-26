@@ -12,6 +12,10 @@ return function ()
         };
         local author = athAuthor.new(athAuthorCreateInfo);
 
+        it("should be an athAuthor", function()
+            expect(athAuthor.athClassName).to.equal("athAuthor");
+        end);
+
         it("should be able to write information", function()
             author:athLog("Hello from TestEZ.");
         end);

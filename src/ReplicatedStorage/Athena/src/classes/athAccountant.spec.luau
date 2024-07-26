@@ -9,6 +9,10 @@ return function ()
         local athAccountant = athAccountantClass.new();
         local athBench = athBenchClass.new();
 
+        it("should be an athAccountant", function()
+            expect(athAccountant.athClassName).to.equal("athAccountant");
+        end);
+
         it("should accurately approximate the performance cost of individual files in the experience", function()
             local accountantTest = {};
 

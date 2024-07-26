@@ -8,6 +8,10 @@ return function ()
     describe("athBench", function()
         local athBench = athBenchClass.new();
 
+        it("should be an athBench", function()
+            expect(athBench.athClassName).to.equal("athBench");
+        end);
+
         it("should return the average network usage of the provided payload with the provided avg. time per request", function()
             local payload = {
                 foo = buffer.create(16);

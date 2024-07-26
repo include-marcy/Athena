@@ -8,6 +8,10 @@ return function ()
         local athHost = athHostClass.new();
         local exampleProject;
 
+        it("should be an athHost", function()
+            expect(athHost.athClassName).to.equal("athHost");
+        end);
+
         it ("should host a project for a library developer", function ()
             exampleProject = athHost:athHostProject();
         end);

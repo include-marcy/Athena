@@ -21,6 +21,10 @@ return function ()
         };
         local package : athPackage.athPackage = athPackage.new(athPackageCreateInfo);
 
+        it("should be an athPackage", function()
+            expect(athPackage.athClassName).to.equal("athPackage");
+        end);
+
         it("should be able to download cloud package resources", function()
             package:athLoadPackageAsync();
 

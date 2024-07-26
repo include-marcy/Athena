@@ -105,8 +105,8 @@ end
 function athSignal:Once(func : any) : athConnection
 	local signal : athSignal = self;
 	local connection : athConnection; connection = signal:Connect(function()
-		connection:Disconnect()
-		func()
+		connection:Disconnect();
+		func();
 	end);
 
 	return connection;

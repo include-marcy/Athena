@@ -6,6 +6,11 @@ return function ()
 
     describe("athCaller", function()
         local athCaller = athCallerClass.new();
+
+        it("should be a an athCaller", function()
+            expect(athCaller.athClassName).to.equal("athCaller");
+        end);
+
         local super = {};
 
         function super:_superDoInternal()

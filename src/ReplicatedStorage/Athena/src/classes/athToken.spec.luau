@@ -11,6 +11,10 @@ return function ()
         };
         local token = athToken.new(athTokenCreateInfo);
 
+        it("should be an athToken", function()
+            expect(athToken.athClassName).to.equal("athToken");
+        end);
+
         it("should be immutable", function()
             expect(function()
                 token.value = "production";

@@ -40,7 +40,7 @@ export type athExtension = typeof(setmetatable({} :: {
 
     Creates a new athExtension. athExtensions are a way to build portable, scalable Plugins for Roblox Studio.
     They are intended to simplify and abstract the process of building the internal workings of a plugin backend.
-    They are also meant to be used to add new features to existing plugins.
+    They are also meant to be used to add new features to existing plugins, using the structure of an athExtension.
 
     @param athExtensionCreateInfo;
     @return athExtension;
@@ -56,10 +56,6 @@ function athExtension.new(athExtensionCreateInfo : athTypes.athExtensionCreateIn
     extension.athExtensionIcon = athExtensionCreateInfo.icon;
     extension.athExtensionDescription = athExtensionCreateInfo.description;
     extension.athExtensionGui = athExtensionCreateInfo.gui;
-
-    extension.athExtensionToolbar = plugin:CreateToolbar(extension.athExtensionName);
-    extension.athExtensionLoadButton = extension.athExtensionToolbar:CreateButton(extension.athExtensionName,
-    extension.athExtensionDescription, extension.athExtensionIcon);
 
     extension._boundCallbacks = {};
     extension.trove = athTrove.new();
@@ -113,6 +109,10 @@ function athExtension:athLoadExtension()
     if extension.athExtensionGui then
         extension:athMakeWindow();
     end
+
+    extension.athExtensionToolbar = plugin:CreateToolbar(extension.athExtensionName);
+    extension.athExtensionLoadButton = extension.athExtensionToolbar:CreateButton(extension.athExtensionName,
+    extension.athExtensionDescription, extension.athExtensionIcon);
 
     extension.athExtensionLoaded:Fire();
 end

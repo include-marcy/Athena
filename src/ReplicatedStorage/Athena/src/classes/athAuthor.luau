@@ -7,6 +7,7 @@
 -- ROBLOX Services
 
 -- Athena Dependencies
+local athTypes = require(script.Parent.Parent.lib.athTypes);
 
 -- Class Declaration
 local athAuthor = {};
@@ -15,7 +16,7 @@ athAuthor.__index = athAuthor;
 export type athAuthor = typeof(setmetatable({} :: {
     name : string;
     athClassName : "athAuthor";
-    mode : "ATH_LOG_MODE_QUIET" | "ATH_LOG_MODE_LOUD" | "ATH_LOG_MODE_SILENT";
+    mode : athTypes.athAuthorMode;
     _logLayers : {[number]: {
         transform : (string) -> (string);
     }};
@@ -32,7 +33,7 @@ export type athAuthor = typeof(setmetatable({} :: {
     @param athAuthorCreateInfo;
     @return athAuthor
 ]==]
-function athAuthor.new(athAuthorCreateInfo) : athAuthor
+function athAuthor.new(athAuthorCreateInfo : athTypes.athAuthorCreateInfo) : athAuthor
     local author = setmetatable({
         athClassName = "athAuthor";
     }, athAuthor);

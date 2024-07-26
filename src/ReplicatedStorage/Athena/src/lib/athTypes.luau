@@ -100,6 +100,13 @@ export type athUserStoreCreateInfo = {
     name : string;
 };
 
+export type athAuthorMode = "ATH_LOG_MODE_QUIET" | "ATH_LOG_MODE_LOUD" | "ATH_LOG_MODE_SILENT";
+
+export type athAuthorCreateInfo = {
+    name : string;
+    mode : athAuthorMode;
+};
+
 export type athExtensionCreateInfo = {
     name : string;
     icon : string;

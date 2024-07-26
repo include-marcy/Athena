@@ -33,6 +33,9 @@ The secondary components of the Athena API are designed to make it easy to creat
 - athBench: Provides libraries with the ability to diagnose performance issues and regulate networking.
 - athAccountant: Provides libraries with insight into the library's large-scale performance.
 
+# Athena Extension API
+The tertiary component of the Athena API, which is targeted towards developers who create Plugins. Using an athExtension to build your plugin project can allow for portable, expandable, and structured plugin development that simplifies common workflows and supplements the ability to create expressive and interactive plugins that have __FUN__ctional guis.
+
 # Athena Mobile Button Implementation
 The following documentation describes the goals and behavior of the Athena Mobile Button implementation.
 

@@ -4,8 +4,6 @@
 --!native
 --!optimize 2
 
--- ROBLOX Services
-
 -- Athena Dependencies
 local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);

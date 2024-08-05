@@ -49,8 +49,8 @@ export type athExtension = typeof(setmetatable({} :: {
     They are intended to simplify and abstract the process of building the internal workings of a plugin backend.
     They are also meant to be used to add new features to existing plugins, using the structure of an athExtension.
 
-    @param athExtensionCreateInfo;
-    @return athExtension;
+    @param athExtensionCreateInfo athTypes.athExtensionCreateInfo
+    @return extension athExtension
 ]=]
 function athExtension.new(athExtensionCreateInfo : athTypes.athExtensionCreateInfo) : athExtension
     local extension = setmetatable({
@@ -130,10 +130,10 @@ end
 
     Creates a new DockWidget for this plugin using the athExtensionGui as a base.
 
-    @param athExtensionWindowCreateInfo;
-    @return Frame;
+    @param athExtensionWindowCreateInfo
+    @return gui Frame
 ]=]
-function athExtension:athMakeWindow(_ : athTypes.athExtensionWindowCreateInfo) : Frame
+function athExtension:athMakeWindow(athExtensionWindowCreateInfo : athTypes.athExtensionWindowCreateInfo) : Frame
     local extension : athExtension = self;
     local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, true);
     extension.athExtensionDock = plugin:CreateDockWidgetPluginGui(extension.athExtensionName, dockWidgetPluginGuiInfo);

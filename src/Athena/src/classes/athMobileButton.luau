@@ -46,7 +46,8 @@ end
     Creates a new Luau representation of the Athena mobile button implementation.
     Read more about the Athena mobile button implementation in the README.md file.
 
-    @return athMobileButton
+    @param athMobileButtonCreateInfo athTypes.athMobileButtonCreateInfo
+    @return mobileButton athMobileButton
 ]=]
 function athMobileButton.new(athMobileButtonCreateInfo : athTypes.athMobileButtonCreateInfo) : athMobileButton
     local mobileButton = setmetatable({

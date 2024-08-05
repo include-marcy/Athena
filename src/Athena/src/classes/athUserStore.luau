@@ -31,6 +31,8 @@ export type athUserStore = typeof(setmetatable({} :: {
 local REFERENDUM_FOLDER_NAME = "athUsersReferendum";
 
 --[=[
+    @within athUserStore
+
     Returns the users referendum, a global folder that stores data and instances for developers in
     Roblox Studio
 ]=]
@@ -47,6 +49,8 @@ local function GET_REFERENDUM_USERS() : Folder
 end
 
 --[=[
+    @within athUserStore
+
     Returns a folder inside the users referendum, a global access folder for storing instances and data inside
     Roblox Studio.
 ]=]
@@ -69,8 +73,8 @@ end
     Creates a new athUserStore, which are similar functionally to DataStores without any API request limits.
     They are designed to be used in Studio only, typically for library and plugin development.
 
-    @param athTypes.athUserStoreCreateInfo
-    @return athUserStore
+    @param athUserStoreCreateInfo athTypes.athUserStoreCreateInfo
+    @return userStore athUserStore
 ]=]
 function athUserStore.new(athUserStoreCreateInfo : athTypes.athUserStoreCreateInfo) : athUserStore
     local userStore = setmetatable({
@@ -169,7 +173,7 @@ end
     Sets the associated instance with the given instance reference identifier for this user store.
 
     @param instanceReferenceIdentifier string
-    @param object Instance
+    @param instance Instance
 ]=]
 function athUserStore:athSetPersistentInstanceAsync(instanceReferenceIdentifier : string, instance : Instance)
     local userStore : athUserStore = self;

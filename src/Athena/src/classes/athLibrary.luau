@@ -46,6 +46,9 @@ export type athLibrary = typeof(setmetatable({} :: {
     If you are the creator of a library or a maintainer of a library which builds with Athena, please read this documentation.
     If you are a developer of an experience which includes Athena built libraries, you can safely ignore this file.
     :::
+
+    @param athLibraryCreateInfo athTypes.athLibraryCreateInfo
+    @return library athLibrary
 ]=]
 function athLibrary.new(athLibraryCreateInfo : athTypes.athLibraryCreateInfo) : athLibrary
     local library = setmetatable({
@@ -108,6 +111,10 @@ end
     @within athLibrary
 
     Makes the copy of a singleton of class in this athLibrary object stored under className.
+
+    @param className string
+    @param class any
+    @param ... any
 ]=]
 function athLibrary:athCreateProjectSingleton(className : string, class : any, ...)
     local library : athLibrary = self;

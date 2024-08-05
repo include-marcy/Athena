@@ -28,8 +28,8 @@ export type athStopwatch = typeof(setmetatable({} :: {
 
     Creates a new athStopwatch.
 
-    @param athTypes.athStopwatchCreateInfo
-    @return athStopwatch
+    @param athStopwatchCreateInfo athTypes.athStopwatchCreateInfo
+    @return stopwatch athStopwatch
 ]=]
 function athStopwatch.new(athStopwatchCreateInfo) : athStopwatch
     local stopwatch = setmetatable({
@@ -77,7 +77,7 @@ end
 --[=[
     @within athStopwatch
 
-    @retun stopwatchIsClicked boolean
+    @return stopwatchIsClicked boolean
 ]=]
 function athStopwatch:athGetState() : boolean
     local stopwatch : athStopwatch = self;

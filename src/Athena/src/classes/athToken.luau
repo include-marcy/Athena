@@ -25,8 +25,8 @@ export type athToken = typeof(setmetatable({} :: {
 --[=[
     @within athToken
 
-    @param athTypes.athTokenCreateInfo
-    @return athToken
+    @param athTokenCreateInfo athTypes.athTokenCreateInfo
+    @return token athToken
 ]=]
 function athToken.new(athTokenCreateInfo : athTypes.athTokenCreateInfo) : athToken
     local token = setmetatable({

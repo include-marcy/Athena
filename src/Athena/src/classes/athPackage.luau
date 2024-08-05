@@ -25,10 +25,27 @@ athPackage.__index = athPackage;
 local SHIP_BLOCK = ";";
 
 --[=[
+    @class athPackage
+    athPackage is a virtual Package, an identity pointing to some resource in the cloud which needs to be maintained.
+    Usually, these are stored on something like GitHub, and then that web data is used to populate some set of Roblox instances
+    like folders and module scripts for use within that environment.
+]=]
+export type athPackage = typeof(setmetatable({} :: {
+    displayName : string?;
+    dump : Instance;
+    identity : string?;
+    athClassName : "athPackage";
+}, {} :: typeof(athPackage)));
+
+--[=[
+    @within athPackage
     Unpacks a package identity into its constituent member variables, which describe:
         The site it shipped from
         The user of the site shipping the package
         The package to ship, from the user
+
+    @param packageIdentity string
+    @return packageIdentity {}
 ]=]
 local function GET_SHIPPING_DETAILS(packageIdentity)
     local details = string.split(packageIdentity, SHIP_BLOCK);
@@ -37,15 +54,25 @@ local function GET_SHIPPING_DETAILS(packageIdentity)
 end
 
 --[=[
+    @within athPackage
     Creates a string which can be stored as a package identity.
+    @param packageCourier string
+    @param packageShipper string
+    @param packageName string
+    @return shippingDetails string
 ]=]
 local function MAKE_SHIPPING_DETAILS(packageCourier : string, packageShipper : string, packageName : string) : string
     return `{packageCourier}{SHIP_BLOCK}{packageShipper}{SHIP_BLOCK}{packageName}`;
 end
 
 --[=[
+    @within athPackage
     Recursively populates the given "currentFolder" argument with the HTTP GET data from GitHub API with the specified
     gitUser and gitRepoName.
+
+    @param gitUser string
+    @param gitRepoName string
+    @param currentFolder Instance
 ]=]
 local function MAKE_DESCRIPTION_FROM_GITHUB(gitUser, gitRepoName, currentFolder)
     local request = `https://api.github.com/repos/{gitUser}/{gitRepoName}/contents`;
@@ -112,25 +139,12 @@ local function MAKE_DESCRIPTION_FROM_GITHUB(gitUser, gitRepoName, currentFolder)
 end
 
 --[=[
-    @class athPackage
-    athPackage is a virtual Package, an identity pointing to some resource in the cloud which needs to be maintained.
-    Usually, these are stored on something like GitHub, and then that web data is used to populate some set of Roblox instances
-    like folders and module scripts for use within that environment.
-]=]
-export type athPackage = typeof(setmetatable({} :: {
-    displayName : string?;
-    dump : Instance;
-    identity : string?;
-    athClassName : "athPackage";
-}, {} :: typeof(athPackage)));
-
---[=[
     @within athPackage
     Creates a virtual Package, an identity pointing to some resource in the cloud which needs to be maintained.
     Usually, these are stored on something like GitHub.
 
-    @param athTypes.athPackageCreateInfo
-    @return athPackage
+    @param athPackageCreateInfo athTypes.athPackageCreateInfo
+    @return package athPackage
 ]=]
 function athPackage.new(athPackageCreateInfo : athTypes.athPackageCreateInfo) : athPackage
     local package = setmetatable({

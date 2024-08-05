@@ -37,7 +37,7 @@ export type athAuthor = typeof(setmetatable({} :: {
     Experience Biographies are used to tell us more about the lifecycle of real JobIds so that we can gain insight
     into the runtime behavior of libraries and experience state.
 
-    @param athAuthorCreateInfo;
+    @param athAuthorCreateInfo athTypes.athAuthorCreateInfo
     @return athAuthor
 ]=]
 function athAuthor.new(athAuthorCreateInfo : athTypes.athAuthorCreateInfo) : athAuthor
@@ -60,7 +60,7 @@ end
     Allows you to register middleware that will transform logged messages on this author.
     Used to automate repetitive tasks or boilerplate text onto messages.
 
-    @param athLogLayerCreateInfo;
+    @param athLogLayerCreateInfo {}
 ]=]
 function athAuthor:athAddLogLayer(athLogLayerCreateInfo)
     local author : athAuthor = self;

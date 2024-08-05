@@ -29,8 +29,8 @@ export type athHost = typeof(setmetatable({} :: {
 
     Creates a new athHost, the entry location of a new Athena project.
 
-    @param athHostCreateInfo;
-    @return athHost;
+    @param athHostCreateInfo athTypes.athHostCreateInfo
+    @return host athHost
 ]=]
 function athHost.new(athHostCreateInfo : athTypes.athHostCreateInfo) : athHost
     local host = setmetatable({

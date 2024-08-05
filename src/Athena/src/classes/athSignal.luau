@@ -12,7 +12,7 @@ local athTypes = require(script.Parent.Parent.lib.athTypes);
 
 -- Class Declaration
 --[=[
-	@class athConnection;
+	@class athConnection
 
 	Represents a callback bound to a signal.
 ]=]
@@ -26,12 +26,12 @@ export type athConnection = typeof(setmetatable({} :: {
 }, {} :: typeof(athConnection)))
 
 --[=[
-	@within athConnection;
+	@within athConnection
 
 	Creates a new athConnection in the given signal, using the supplied callback.
 
-	@param athConnectionCreateInfo;
-	@return athConnection;
+	@param athConnectionCreateInfo athTypes.athConnectionCreateInfo
+	@return connection athConnection
 ]=]
 function athConnection.new(athConnectionCreateInfo : athTypes.athConnectionCreateInfo) : athConnection
 	local connection = setmetatable({
@@ -68,8 +68,6 @@ end
 	@class athSignal
 	athSignals are synchronization objects that allow for the connection of callbacks and the firing of their signal to execute all
 	connected callbacks.
-
-	@return athSignal
 ]=]
 local athSignal = {};
 athSignal.__index = athSignal;
@@ -131,8 +129,8 @@ end
 	@within athSignal
 	Fires the signal, causing all connected callbacks to execute once with the variadic arguments being passed on.
 
-	@param ...;
-	@return athSignal;
+	@param ... any
+	@return signal athSignal
 ]=]
 function athSignal:Fire(...)
 	local signal : athSignal = self;

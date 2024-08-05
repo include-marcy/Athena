@@ -2,12 +2,6 @@
 
 local athUtils = {};
 
---[=[
-    @public
-    @athUtils
-
-    Returns 
-]=]
 function athUtils.athIsA(Class, athClassName)
     return typeof(Class) == "table" and (Class.athClassName or "athUnlabeledClass") == athClassName;
 end

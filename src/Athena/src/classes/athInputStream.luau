@@ -42,7 +42,7 @@ export type athInputStream = typeof(setmetatable({} :: {
     Creates a new athInputStream, a cross-platform input streaming object that facilitates libraries demand for
     a unified input detection method across all ©Roblox platforms.
 
-    @return athInputStream
+    @return inputStream athInputStream
 ]=]
 function athInputStream.new() : athInputStream
     local inputStream = setmetatable({

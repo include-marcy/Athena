@@ -1,4 +1,7 @@
-![Athena Logo (Dark Theme)](assets/AthenaLogo2.png)
+<p align="center">
+  <img width="336" height="133" src="https://github.com/include-marcy/Athena/blob/82a94a54d797d50e56840c511a72c874a5355d53/assets/AthenaLogo2.png"/>
+</p>
+
 ![DOCS](https://img.shields.io/badge/latest_release-v0.0.1-blue?style=flat-square&logo=Roblox%20Studio)  ![Non-Production](https://img.shields.io/badge/production-no-red?style=flat-square&logo=Roblox%20Studio)
 # What is Athena?
 Athena is a Roblox Library Manager and API (Application Program Interface) for Roblox Studio and its associated software. Athena is designed to seamlessly and quickly set up libraries and frameworks for applications with an explicit developer hands-on, non-user-facing interface.

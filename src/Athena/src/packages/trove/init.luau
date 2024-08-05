@@ -48,7 +48,7 @@ local function AssertPromiseLike(object)
 end
 
 --[=[
-	@within Trove
+	@class Trove
 	A Trove is helpful for tracking any sort of object during
 	runtime that needs to get cleaned up at some point.
 ]=]

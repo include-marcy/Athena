@@ -10,6 +10,13 @@
 local athTypes = require(script.Parent.Parent.lib.athTypes);
 
 -- Class Declaration
+--[=[
+    @class athAuthor
+
+    An athAuthor instance is used to write logs to the experience "biography".
+    Experience Biographies are used to tell us more about the lifecycle of real JobIds so that we can gain insight
+    into the runtime behavior of libraries and experience state.
+]=]
 local athAuthor = {};
 athAuthor.__index = athAuthor;
 
@@ -23,8 +30,8 @@ export type athAuthor = typeof(setmetatable({} :: {
     _biography : {[number]: string};
 }, {} :: typeof(athAuthor)));
 
---[==[
-    @class athAuthor
+--[=[
+    @within athAuthor
 
     Creates a new athAuthor instance. An athAuthor instance is used to write logs to the experience "biography".
     Experience Biographies are used to tell us more about the lifecycle of real JobIds so that we can gain insight
@@ -32,7 +39,7 @@ export type athAuthor = typeof(setmetatable({} :: {
 
     @param athAuthorCreateInfo;
     @return athAuthor
-]==]
+]=]
 function athAuthor.new(athAuthorCreateInfo : athTypes.athAuthorCreateInfo) : athAuthor
     local author = setmetatable({
         athClassName = "athAuthor";
@@ -47,29 +54,29 @@ function athAuthor.new(athAuthorCreateInfo : athTypes.athAuthorCreateInfo) : ath
     return author;
 end
 
---[==[
-    @class athAuthor
+--[=[
+    @within athAuthor
 
     Allows you to register middleware that will transform logged messages on this author.
     Used to automate repetitive tasks or boilerplate text onto messages.
 
     @param athLogLayerCreateInfo;
-]==]
+]=]
 function athAuthor:athAddLogLayer(athLogLayerCreateInfo)
     local author : athAuthor = self;
 
     table.insert(author._logLayers, athLogLayerCreateInfo);
 end
 
---[==[
-    @class athAuthor
+--[=[
+    @within athAuthor
 
     Logs the message to the experience biography.
     Automatically includes the author name, current time, and the message with any log transforms.
 
     @param message : string;
     @return transformedMessage : string;
-]==]
+]=]
 function athAuthor:athLog(message : string) : string
     local author : athAuthor = self;
 

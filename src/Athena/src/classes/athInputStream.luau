@@ -17,6 +17,12 @@ local athInputStreamPath = require(athena.classes.athInputStreamPath);
 local athMobileButton = require(athena.classes.athMobileButton);
 
 -- Class Definition
+--[=[
+    @class athInputStream
+
+    An athInputStream is a cross-platform input streaming object that facilitates libraries demand for
+    a unified input detection method across all ©Roblox platforms.
+]=]
 local athInputStream = {};
 athInputStream.__index = athInputStream;
 
@@ -30,13 +36,14 @@ export type athInputStream = typeof(setmetatable({} :: {
     athClassName : "athInputStream";
 }, {} :: typeof(athInputStream)));
 
---[==[
-    @class athInputStream
+--[=[
+    @within athInputStream
 
     Creates a new athInputStream, a cross-platform input streaming object that facilitates libraries demand for
     a unified input detection method across all ©Roblox platforms.
 
-]==]
+    @return athInputStream
+]=]
 function athInputStream.new() : athInputStream
     local inputStream = setmetatable({
         athClassName = "athInputStream";
@@ -53,34 +60,34 @@ function athInputStream.new() : athInputStream
     return inputStream;
 end
 
---[==[
-    @class athInputStream
+--[=[
+    @within athInputStream
 
     Returns a new athSignal which is fired whenever any input begins
 
     @return athSignal;
-]==]
+]=]
 function athInputStream:athGetInputBeganSignal() : athSignal.athSignal
     local inputStream : athInputStream = self;
 
     return inputStream.athInputBeganSignal;
 end
 
---[==[
-    @class athInputStream
+--[=[
+    @within athInputStream
 
     Returns a new athSignal which is fired whenever any input ends
 
     @return athSignal;
-]==]
+]=]
 function athInputStream:athGetInputEndedSignal() : athSignal.athSignal
     local inputStream : athInputStream = self;
 
     return inputStream.athInputEndedSignal;
 end
 
---[==[
-    @class athInputStream
+--[=[
+    @within athInputStream
 
     Returns a signal which, when fired, outputs a unit vector describing the desired movement direction of the client.
     For use in core script replacements where implementations should be platform blind.
@@ -92,16 +99,16 @@ end
     Input stream from VR
 
     @return athSignal;
-]==]
+]=]
 function athInputStream:athGetMovementSignal() : athSignal.athSignal
     return self.athMovementSignal :: athSignal.athSignal;
 end
 
---[==[
-    @class athInputStream
+--[=[
+    @within athInputStream
 
     Sets up this athInputStream to begin outputting input signals.
-]==]
+]=]
 function athInputStream:athInit()
     local inputStream : athInputStream = self;
     local athInputTrove : athTrove.athTrove = inputStream.athTrove;
@@ -193,15 +200,15 @@ function athInputStream:athInit()
     end);
 end
 
---[==[
-    @class athInputStream
+--[=[
+    @within athInputStream
 
     Gets the currently active input method. Has various constraints that determines which
     input method is "active", for instance:
     - Sometimes, touch screen laptops are detected as mobile devices. This detects keyboards and uses them when available.
 
     @return athInformedInputType;
-]==]
+]=]
 function athInputStream:athGetInformedInputMethod() : athTypes.athInformedInputType
     local keyboardEnabled = UserInputService.KeyboardEnabled;
     local touchEnabled = UserInputService.TouchEnabled;
@@ -219,14 +226,14 @@ function athInputStream:athGetInformedInputMethod() : athTypes.athInformedInputT
     end
 end
 
---[==[
-    @class athInputStream
+--[=[
+    @within athInputStream
 
     Gets the linked dedicated input channel associated with the desired input.
 
     @param inputChannel : string;
     @return athDedicatedInputChannel;
-]==]
+]=]
 function athInputStream:athGetDedicatedInputChannel(inputChannel : string)
     local inputStream : athInputStream = self;
 

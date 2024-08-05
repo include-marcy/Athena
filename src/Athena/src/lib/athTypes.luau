@@ -26,10 +26,6 @@ export type athInputStreamData = {
     began : boolean;
 };
 
-export type athEnumeratorCreateInfo = {
-    name : string;
-};
-
 export type athAccountantCreateInfo = {
     name : string;
 };
@@ -121,6 +117,10 @@ export type athExtensionWindowCreateInfo = {
     athExtensionWindowDocked : boolean;
     athExtensionWindowRef : GuiObject?;
     athExtensionWindowRunMode : "ATH_EDITOR_EXTENSION" | "ATH_LIVE_EXTENSION" | "ATH_SCRIPT_EXTENSION";
+};
+
+export type athEnumeratorCreateInfo = {
+	name : string;
 };
 
 return athTypes;

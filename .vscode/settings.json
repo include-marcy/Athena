@@ -1,3 +1,4 @@
 {
-    "luau-lsp.sourcemap.rojoProjectFile": "athena.project.json"
+    "luau-lsp.sourcemap.rojoProjectFile": "athena.project.json",
+    "luau-class-generator.libraryTypeFile": "/Users/marcelinecroyle/Documents/GitHub/Athena/src/Athena/src/lib/athTypes.luau"
 }

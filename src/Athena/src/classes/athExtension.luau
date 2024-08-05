@@ -13,6 +13,13 @@ local athSignal = require(athena.classes.athSignal);
 local athTrove = require(athena.packages.trove);
 
 -- Class Declaration
+--[=[
+    @class athExtension
+
+    athExtensions are a way to build portable, scalable Plugins for Roblox Studio.
+    They are intended to simplify and abstract the process of building the internal workings of a plugin backend.
+    They are also meant to be used to add new features to existing plugins, using the structure of an athExtension.
+]=]
 local athExtension = {};
 athExtension.__index = athExtension;
 
@@ -35,8 +42,8 @@ export type athExtension = typeof(setmetatable({} :: {
     };
 }, {} :: typeof(athExtension)));
 
---[==[
-    @class athExtension
+--[=[
+    @within athExtension
 
     Creates a new athExtension. athExtensions are a way to build portable, scalable Plugins for Roblox Studio.
     They are intended to simplify and abstract the process of building the internal workings of a plugin backend.
@@ -44,7 +51,7 @@ export type athExtension = typeof(setmetatable({} :: {
 
     @param athExtensionCreateInfo;
     @return athExtension;
-]==]
+]=]
 function athExtension.new(athExtensionCreateInfo : athTypes.athExtensionCreateInfo) : athExtension
     local extension = setmetatable({
         athClassName = "athExtension";
@@ -91,15 +98,15 @@ function athExtension.new(athExtensionCreateInfo : athTypes.athExtensionCreateIn
     return extension;
 end
 
---[==[
-    @class athExtension
+--[=[
+    @within athExtension
 
     Loads the athExtension, with the following actions being loaded:
     - Populates the toolbar with this extension's buttons.
     - Loads the code of this athExtension's main function.
     - Fires the loaded event
     - Allows it to be closed
-]==]
+]=]
 function athExtension:athLoadExtension()
     local extension : athExtension = self;
     if extension._loaded then
@@ -118,14 +125,14 @@ function athExtension:athLoadExtension()
 end
 
 
---[==[
-    @class athExtension
+--[=[
+    @within athExtension
 
     Creates a new DockWidget for this plugin using the athExtensionGui as a base.
 
     @param athExtensionWindowCreateInfo;
     @return Frame;
-]==]
+]=]
 function athExtension:athMakeWindow(_ : athTypes.athExtensionWindowCreateInfo) : Frame
     local extension : athExtension = self;
     local dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, true);

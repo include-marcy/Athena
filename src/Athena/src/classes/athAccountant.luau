@@ -9,6 +9,12 @@ local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);
 
 -- Class Definition
+--[=[
+    @class athAccountant
+
+    An accountant object is used to reason about performance statistics inside
+    your experience.
+]=]
 local athAccountant = {};
 athAccountant.__index = athAccountant;
 
@@ -17,15 +23,15 @@ export type athAccountant = typeof(setmetatable({} :: {
     name : string;
 }, {} :: typeof(athAccountant)));
 
---[==[
-    @class athAccountant
+--[=[
+    @within athAccountant
 
     Creates a new athAccountant. An accountant object is used to reason about performance statistics inside
     your experience.
 
     @param athAccountantCreateInfo;
     @return athAccountant;
-]==]
+]=]
 function athAccountant.new(athAccountantCreateInfo : athTypes.athAccountantCreateInfo) : athAccountant
     local accountant = setmetatable({
         athClassName = "athAccountant";

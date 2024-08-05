@@ -24,41 +24,29 @@ athPackage.__index = athPackage;
 -- Constants
 local SHIP_BLOCK = ";";
 
---[==[
-    @private
-    @const
-    @static
-
+--[=[
     Unpacks a package identity into its constituent member variables, which describe:
         The site it shipped from
         The user of the site shipping the package
         The package to ship, from the user
-]==]
+]=]
 local function GET_SHIPPING_DETAILS(packageIdentity)
     local details = string.split(packageIdentity, SHIP_BLOCK);
 
     return table.unpack(details);
 end
 
---[==[
-    @private
-    @const
-    @static
-
+--[=[
     Creates a string which can be stored as a package identity.
-]==]
+]=]
 local function MAKE_SHIPPING_DETAILS(packageCourier : string, packageShipper : string, packageName : string) : string
     return `{packageCourier}{SHIP_BLOCK}{packageShipper}{SHIP_BLOCK}{packageName}`;
 end
 
---[==[
-    @private
-    @const
-    @static
-
+--[=[
     Recursively populates the given "currentFolder" argument with the HTTP GET data from GitHub API with the specified
     gitUser and gitRepoName.
-]==]
+]=]
 local function MAKE_DESCRIPTION_FROM_GITHUB(gitUser, gitRepoName, currentFolder)
     local request = `https://api.github.com/repos/{gitUser}/{gitRepoName}/contents`;
 
@@ -123,6 +111,12 @@ local function MAKE_DESCRIPTION_FROM_GITHUB(gitUser, gitRepoName, currentFolder)
     download(request);
 end
 
+--[=[
+    @class athPackage
+    athPackage is a virtual Package, an identity pointing to some resource in the cloud which needs to be maintained.
+    Usually, these are stored on something like GitHub, and then that web data is used to populate some set of Roblox instances
+    like folders and module scripts for use within that environment.
+]=]
 export type athPackage = typeof(setmetatable({} :: {
     displayName : string?;
     dump : Instance;
@@ -130,14 +124,14 @@ export type athPackage = typeof(setmetatable({} :: {
     athClassName : "athPackage";
 }, {} :: typeof(athPackage)));
 
---[==[
-    @class athPackage
+--[=[
+    @within athPackage
     Creates a virtual Package, an identity pointing to some resource in the cloud which needs to be maintained.
     Usually, these are stored on something like GitHub.
 
-    @param athPackageCreateInfo;
+    @param athTypes.athPackageCreateInfo
     @return athPackage
-]==]
+]=]
 function athPackage.new(athPackageCreateInfo : athTypes.athPackageCreateInfo) : athPackage
     local package = setmetatable({
         athClassName = "athPackage";
@@ -173,11 +167,15 @@ function athPackage.new(athPackageCreateInfo : athTypes.athPackageCreateInfo) : 
     return package;
 end
 
---[==[
-    @class athPackage
+--[=[
+    @within athPackage
 
     Sets the package's identity, an HTTP url describing the resource this package is linked to.
-]==]
+
+    @param packageCourier string
+    @param packageShipper string
+    @param packageName string
+]=]
 function athPackage:athSetPackageIdentity(packageCourier, packageShipper, packageName)
     local package : athPackage = self;
     local packageIdentity = MAKE_SHIPPING_DETAILS(packageCourier, packageShipper, packageName);
@@ -185,12 +183,12 @@ function athPackage:athSetPackageIdentity(packageCourier, packageShipper, packag
     package.identity = packageIdentity;
 end
 
---[==[
-    @class athPackage
+--[=[
+    @within athPackage
     @yields
 
     Loads the current package identity into the data model.
-]==]
+]=]
 function athPackage:athLoadPackageAsync()
     local package : athPackage = self;
 
@@ -201,11 +199,13 @@ function athPackage:athLoadPackageAsync()
     end
 end
 
---[==[
-    @class athPackage
+--[=[
+    @within athPackage
 
     Returns the existing package associated with this package identity, if one is found.
-]==]
+
+    @return Instance?
+]=]
 function athPackage:athGetPackageInstance() : Instance?
     local package : athPackage = self;
     local packageIdentity = package.identity;
@@ -217,11 +217,11 @@ function athPackage:athGetPackageInstance() : Instance?
     return athPackagesUserStore:athGetPersistentInstanceAsync(packageIdentity);
 end
 
---[==[
-    @class athPackage
+--[=[
+    @within athPackage
 
-    Returns the existing package associated with this package identity, if one is found.
-]==]
+    Attempts to build the real Roblox instance this virtual package is based on.
+]=]
 function athPackage:athBuildPackageInstance()
     local package : athPackage = self;
     local packageIdentity = package.identity;
@@ -242,11 +242,11 @@ function athPackage:athBuildPackageInstance()
     packageInstance.Parent = packageDump;
 end
 
---[==[
-    @class athPackage
+--[=[
+    @within athPackage
 
-    Updates the existing package associated with this package identity.
-]==]
+    Updates the existing real Roblox Instance package associated with this virtual package identity.
+]=]
 function athPackage:athUpdatePackageInstance()
     local package : athPackage = self;
     local packageIdentity = package.identity;

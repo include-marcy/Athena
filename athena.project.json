@@ -5,7 +5,10 @@
       "ReplicatedStorage": {
         "$className": "ReplicatedStorage",
         "$ignoreUnknownInstances": true,
-        "$path": "src/ReplicatedStorage"
+        "$path": "src/ReplicatedStorage",
+        "Athena": {
+          "$path": "src/Athena"
+        }
       },
       "ServerScriptService": {
         "$className": "ServerScriptService",

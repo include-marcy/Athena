@@ -11,6 +11,11 @@ local HttpService = game:GetService("HttpService");
 local athTypes = require(script.Parent.Parent.lib.athTypes);
 
 -- Class Declaration
+--[=[
+	@class athConnection;
+
+	Represents a callback bound to a signal.
+]=]
 local athConnection = {};
 athConnection.__index = athConnection;
 export type athConnection = typeof(setmetatable({} :: {
@@ -20,14 +25,14 @@ export type athConnection = typeof(setmetatable({} :: {
 	athClassName : "athSignal";
 }, {} :: typeof(athConnection)))
 
---[==[
-	@class athConnection;
+--[=[
+	@within athConnection;
 
 	Creates a new athConnection in the given signal, using the supplied callback.
 
 	@param athConnectionCreateInfo;
 	@return athConnection;
-]==]
+]=]
 function athConnection.new(athConnectionCreateInfo : athTypes.athConnectionCreateInfo) : athConnection
 	local connection = setmetatable({
 		athClassName = "athSignal";
@@ -43,11 +48,11 @@ function athConnection.new(athConnectionCreateInfo : athTypes.athConnectionCreat
 	return connection;
 end
 
---[==[
-	@class athConnection
+--[=[
+	@within athConnection
 
 	Removes this athConnection from the athSignal it is tied to.
-]==]
+]=]
 function athConnection:Disconnect()
 	local connectionId = self.connectionId;
 	local signal : athSignal = self.signal;
@@ -59,6 +64,13 @@ function athConnection:Disconnect()
 end
 
 -- Class Definition
+--[=[
+	@class athSignal
+	athSignals are synchronization objects that allow for the connection of callbacks and the firing of their signal to execute all
+	connected callbacks.
+
+	@return athSignal
+]=]
 local athSignal = {};
 athSignal.__index = athSignal;
 
@@ -67,10 +79,11 @@ export type athSignal = typeof(setmetatable({} :: {
 }, {} :: typeof(athSignal)));
 
 --[=[
+	@within athSignal
 	Creates an athSignal, a synchronization object in Heimdall that allows for the connection of callbacks and the firing of the signal to execute all
 	connected callbacks.
 
-	@return athSignal;
+	@return athSignal
 ]=]
 function athSignal.new() : athSignal
 	local signal = setmetatable({}, athSignal);
@@ -81,10 +94,11 @@ function athSignal.new() : athSignal
 end
 
 --[=[
+	@within athSignal
 	Connects the provided callback to the athSignal, returning a clean-up object athConnection which can be used to remove the callback from the execution pool.
 
-	@param func;
-	@return athConnection;
+	@param func () -> ()
+	@return athConnection
 ]=]
 function athSignal:Connect(func : any) : athConnection
 	local athConnectionCreateInfo : athTypes.athConnectionCreateInfo = {
@@ -97,10 +111,11 @@ function athSignal:Connect(func : any) : athConnection
 end
 
 --[=[
+	@within athSignal
 	Wraps the function so that it will connect to this signal and execute its callback, before promptly disconnecting itself after 1 execution.
 
-	@param func;
-	@return athConnection;
+	@param func () -> ()
+	@return athConnection
 ]=]
 function athSignal:Once(func : any) : athConnection
 	local signal : athSignal = self;
@@ -113,6 +128,7 @@ function athSignal:Once(func : any) : athConnection
 end
 
 --[=[
+	@within athSignal
 	Fires the signal, causing all connected callbacks to execute once with the variadic arguments being passed on.
 
 	@param ...;
@@ -129,6 +145,8 @@ function athSignal:Fire(...)
 end
 
 --[=[
+	@within athSignal
+
 	Destroys the signal and all connected athConnections.
 ]=]
 function athSignal:Destroy()

@@ -11,6 +11,9 @@ local athena = script.Parent.Parent;
 local athTypes = require(athena.lib.athTypes);
 
 -- Class Definition
+--[=[
+    @class athToken
+]=]
 local athToken = {};
 athToken.__index = athToken;
 
@@ -19,12 +22,12 @@ export type athToken = typeof(setmetatable({} :: {
     athClassName : "athToken";
 }, {} :: typeof(athToken)));
 
---[==[
-    @class athToken
+--[=[
+    @within athToken
 
-    @param athTokenCreateInfo;
-    @return athToken;
-]==]
+    @param athTypes.athTokenCreateInfo
+    @return athToken
+]=]
 function athToken.new(athTokenCreateInfo : athTypes.athTokenCreateInfo) : athToken
     local token = setmetatable({
         athClassName = "athToken";
@@ -37,11 +40,11 @@ function athToken.new(athTokenCreateInfo : athTypes.athTokenCreateInfo) : athTok
     return token;
 end
 
---[==[
-    @class athToken
+--[=[
+    @within athToken
 
-    @return value : any;
-]==]
+    @return value any
+]=]
 function athToken:athReadValue()
     local token : athToken = self;
 

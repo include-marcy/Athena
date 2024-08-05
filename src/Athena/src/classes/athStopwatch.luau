@@ -5,6 +5,12 @@
 --!optimize 2
 
 -- Class Declaration
+--[=[
+    @class athStopwatch
+
+    athStopwatches are a helper object that make it easier to track and create benchmarking based on the execution time
+    of some Luau code.
+]=]
 local athStopwatch = {};
 athStopwatch.__index = athStopwatch;
 
@@ -17,14 +23,14 @@ export type athStopwatch = typeof(setmetatable({} :: {
     athClassName : "athStopwatch";
 }, {} :: typeof(athStopwatch)));
 
---[==[
-    @class athStopwatch
+--[=[
+    @within athStopwatch
 
     Creates a new athStopwatch.
 
-    @param athStopwatchCreateInfo;
-    @return athStopwatch;
-]==]
+    @param athTypes.athStopwatchCreateInfo
+    @return athStopwatch
+]=]
 function athStopwatch.new(athStopwatchCreateInfo) : athStopwatch
     local stopwatch = setmetatable({
         athClassName = "athStopwatch";
@@ -38,11 +44,11 @@ function athStopwatch.new(athStopwatchCreateInfo) : athStopwatch
     return stopwatch;
 end
 
---[==[
-    @class athStopwatch
+--[=[
+    @within athStopwatch
 
     Stops the timer of this athStopwatch.
-]==]
+]=]
 function athStopwatch:athClick()
     local stopwatch : athStopwatch = self;
 
@@ -55,35 +61,35 @@ function athStopwatch:athClick()
     stopwatch._elapsedTime = (stopwatch._stopTime - stopwatch._startTime);
 end
 
---[==[
-    @class athStopwatch
+--[=[
+    @within athStopwatch
 
     Returns the length of time this stopwatch has been running for.
 
-    @return elapsedTime : number;
-]==]
+    @return elapsedTime number
+]=]
 function athStopwatch:athGetTime() : number
     local stopwatch : athStopwatch = self;
 
     return stopwatch._elapsedTime;
 end
 
---[==[
-    @class athStopwatch
+--[=[
+    @within athStopwatch
 
-    @retun stopwatchIsClicked : boolean;
-]==]
+    @retun stopwatchIsClicked boolean
+]=]
 function athStopwatch:athGetState() : boolean
     local stopwatch : athStopwatch = self;
 
     return stopwatch._clicked;
 end
 
---[==[
-    @class athStopwatch
+--[=[
+    @within athStopwatch
 
-    @return name : string;
-]==]
+    @return name string
+]=]
 function athStopwatch:athGetName() : string
     local stopwatch : athStopwatch = self;
 
